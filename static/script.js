@@ -1,8 +1,8 @@
 function insertar(texto) {
   let input = document.getElementById("ecuacion");
   // Inserta texto en la posición actual del cursor
-  let start = input.selectionStart;
-  let end = input.selectionEnd;
+  let start = input.selectionStart || input.value.length;
+  let end = input.selectionEnd || input.value.length;
   let current = input.value;
   input.value = current.substring(0, start) + texto + current.substring(end);
   // Mueve el cursor al final del texto insertado
@@ -12,8 +12,8 @@ function insertar(texto) {
 
 function borrar() {
   let input = document.getElementById("ecuacion");
-  let start = input.selectionStart;
-  let end = input.selectionEnd;
+  let start = input.selectionStart || input.value.length;
+  let end = input.selectionEnd || input.value.length;
   if (start === end && start > 0) {
     // borra un carácter antes del cursor
     input.value = input.value.substring(0, start - 1) + input.value.substring(end);
@@ -24,6 +24,18 @@ function borrar() {
     input.selectionStart = input.selectionEnd = start;
   }
   input.focus();
+}
+
+function calcularGrado(eq) {
+  // Busca derivadas con exponentes entre paréntesis
+  let regex = /\((y'+|y''+|y'''+)\)\^(\d+)/g;
+  let matches = [...eq.matchAll(regex)];
+  
+  if (matches.length > 0) {
+    let grados = matches.map(m => parseInt(m[2]));
+    return Math.max(...grados);
+  }
+  return 1; // por defecto
 }
 
 function clasificar() {
