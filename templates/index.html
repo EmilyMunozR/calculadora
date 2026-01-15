@@ -13,21 +13,26 @@
 
     <div id="teclado">
       <button onclick="insertar('y')">y</button>
-      <button onclick="insertar(\"y'\")">y'</button>
-      <button onclick="insertar(\"y''\")">y''</button>
-      <button onclick="insertar(\"y'''\")">y'''</button>
+      <button onclick="insertar('''')">''</button>
       <button onclick="insertar('∂')">∂</button>
-      <button onclick="insertar('^2')">^2</button>
-      <button onclick="insertar('^3')">^3</button>
-      <button onclick="insertar('+')">+</button>
+      <button onclick="insertar('^')">^n</button>
+      <button onclick="insertar('+')">+</button
       <button onclick="insertar('-')">-</button>
       <button onclick="insertar('=0')">=0</button>
       <button onclick="borrar()">⌫</button>
     </div>
 
     <button class="btn" onclick="clasificar()">Clasificar</button>
+  </div>
 
-    <div id="resultado"></div>
+  <!-- Cuadro de resultados -->
+  <div class="result-box" id="resultado">
+    <p><strong>Orden:</strong> -</p>
+    <p><strong>Grado:</strong> -</p>
+    <p><strong>Linealidad:</strong> -</p>
+    <p><strong>Tipo:</strong> -</p>
+    <button class="btn-small" onclick="toggleDetalles()">Ver más</button>
+    <div id="detalles" class="detalles oculto"></div>
   </div>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
