@@ -1,0 +1,71 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #e9ecef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  text-align: center;
+  width: 400px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+input {
+  padding: 10px;
+  width: 90%;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#teclado {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#teclado button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  background: #f8f9fa;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+#teclado button:hover {
+  background: #007bff;
+  color: white;
+}
+
+.btn {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+#resultado {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: left;
+}

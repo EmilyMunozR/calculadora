@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clasificador de Ecuaciones</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Clasificador de Ecuaciones</h1>
+
+    <input id="ecuacion" placeholder="Escribe tu ecuación aquí">
+
+    <div id="teclado">
+      <button onclick="insertar('y')">y</button>
+      <button onclick="insertar(\"y'\")">y'</button>
+      <button onclick="insertar(\"y''\")">y''</button>
+      <button onclick="insertar(\"y'''\")">y'''</button>
+      <button onclick="insertar('∂')">∂</button>
+      <button onclick="insertar('^2')">^2</button>
+      <button onclick="insertar('+')">+</button>
+      <button onclick="insertar('-')">-</button>
+      <button onclick="insertar('=0')">=0</button>
+      <button onclick="borrar()">⌫</button>
+    </div>
+
+    <button class="btn" onclick="clasificar()">Clasificar</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
