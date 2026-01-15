@@ -24,13 +24,15 @@ def clasificar():
 
     # --- GRADO ---
     grado = 1
-    match = re.search(r"(y'*)\^(\d+)", ecuacion)
-    if match:
-        grado = int(match.group(2))
+    regex = r"(y'+|y''+|y'''+|∂[a-zA-Z]+/∂[a-zA-Z]+)\^(\d+)"
+    matches = re.findall(regex, ecuacion)
+    if matches:
+        grados = [int(m[1]) for m in matches]
+        grado = max(grados)
 
     # --- LINEALIDAD ---
     lineal = "Lineal"
-    if "(y')^2" in ecuacion or "y*y'" in ecuacion or "(y'')^2" in ecuacion:
+    if "(y')^2" in ecuacion or "y*y'" in ecuacion or "(y'')^2" in ecuacion or "(y''')^2" in ecuacion:
         lineal = "No lineal"
 
     # --- TIPO ---
