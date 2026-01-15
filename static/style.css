@@ -2,9 +2,9 @@ body {
   font-family: Arial, sans-serif;
   background: #e9ecef;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
+  padding: 40px;
 }
 
 .container {
@@ -14,6 +14,7 @@ body {
   box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
   text-align: center;
   width: 400px;
+  margin-bottom: 20px;
 }
 
 h1 {
@@ -64,8 +65,34 @@ input {
   background: #0056b3;
 }
 
-#resultado {
-  margin-top: 20px;
-  font-weight: bold;
+.result-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  width: 400px;
   text-align: left;
+}
+
+.btn-small {
+  padding: 5px 10px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-small:hover {
+  background: #5a6268;
+}
+
+.detalles {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.oculto {
+  display: none;
 }
