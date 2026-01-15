@@ -3,6 +3,16 @@ import re
 
 app = Flask(__name__)
 
+def calcular_grado(ecuacion):
+    # Busca derivadas con exponentes, ej: (y'')^2, (y')^3, (y''')^4
+    regex = r"\((y'+|y''+|y'''+)\)\^(\d+)"
+    matches = re.findall(regex, ecuacion)
+    if matches:
+        grados = [int(m[1]) for m in matches]
+        return max(grados)
+    else:
+        return 1  # por defecto si no hay potencias
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -23,12 +33,7 @@ def clasificar():
         orden = 1
 
     # --- GRADO ---
-    grado = 1
-    regex = r"(y'+|y''+|y'''+|∂[a-zA-Z]+/∂[a-zA-Z]+)\^(\d+)"
-    matches = re.findall(regex, ecuacion)
-    if matches:
-        grados = [int(m[1]) for m in matches]
-        grado = max(grados)
+    grado = calcular_grado(ecuacion)
 
     # --- LINEALIDAD ---
     lineal = "Lineal"
