@@ -58,32 +58,49 @@ function clasificar() {
   })
   .then(res => res.json())
   .then(data => {
-    // Recalcular linealidad en frontend para doble validación
-    const linealidadFrontend = esLineal(ecuacion);
-
     document.getElementById("resultado").innerHTML = `
-      <p><strong>Orden:</strong> ${data.orden}</p>
-      <p><strong>Grado:</strong> ${data.grado}</p>
-      <p><strong>Linealidad:</strong> ${linealidadFrontend}</p>
-      <p><strong>Tipo:</strong> ${data.tipo}</p>
-      <button class="btn-small" onclick="toggleDetalles()">Ver más</button>
-      <div id="detalles" class="detalles oculto">
-        <p><strong>Orden:</strong> ${data.orden} porque la derivada más alta es de orden ${data.orden}.</p>
-        <p><strong>Grado:</strong> ${data.grado} porque la derivada aparece elevada a la potencia ${data.grado}.</p>
-        <p><strong>Linealidad:</strong> ${linealidadFrontend} porque ${
-          linealidadFrontend === "Lineal"
-            ? "y y sus derivadas aparecen solo en potencia 1 y sin productos entre ellas."
-            : "hay potencias o productos de y o sus derivadas (por ejemplo, (y')^3)."
-        }</p>
-        <p><strong>Tipo:</strong> ${data.tipo} porque ${
-          data.tipo === "Diferencial parcial"
-            ? "aparecen derivadas parciales (∂)."
-            : "las derivadas son respecto a una sola variable."
-        }</p>
+      <p><strong>Ecuación:</strong> ${ecuacion}</p>
+
+      <div class="detalle">
+        <button class="toggle" onclick="toggleExp('orden')">Orden ▼ (${data.orden})</button>
+        <div id="exp-orden" class="exp oculto">
+          Esta ecuación es de orden ${data.orden} porque la derivada más alta es de orden ${data.orden}.
+        </div>
+      </div>
+
+      <div class="detalle">
+        <button class="toggle" onclick="toggleExp('grado')">Grado ▼ (${data.grado})</button>
+        <div id="exp-grado" class="exp oculto">
+          Es de grado ${data.grado} porque aparece una derivada elevada a la potencia ${data.grado}.
+        </div>
+      </div>
+
+      <div class="detalle">
+        <button class="toggle" onclick="toggleExp('linealidad')">Linealidad ▼ (${data.linealidad})</button>
+        <div id="exp-linealidad" class="exp oculto">
+          ${data.linealidad === "Lineal"
+            ? "Es lineal porque y y sus derivadas aparecen solo en potencia 1 y sin multiplicarse."
+            : "Es no lineal porque hay potencias o productos de y o sus derivadas (ejemplo: (y'')^2)."}
+        </div>
+      </div>
+
+      <div class="detalle">
+        <button class="toggle" onclick="toggleExp('tipo')">Tipo ▼ (${data.tipo})</button>
+        <div id="exp-tipo" class="exp oculto">
+          ${data.tipo === "Diferencial parcial"
+            ? "Es una ecuación diferencial parcial porque aparecen derivadas con el símbolo ∂."
+            : "Es una ecuación diferencial ordinaria porque las derivadas son respecto a una sola variable."}
+        </div>
       </div>
     `;
   });
 }
+
+function toggleExp(id) {
+  const exp = document.getElementById("exp-" + id);
+  exp.classList.toggle("oculto");
+}
+
 
 function toggleDetalles() {
   const detalles = document.getElementById("detalles");
@@ -105,3 +122,4 @@ function esLineal(eqRaw) {
 
   return "Lineal";
 }
+
