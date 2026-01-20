@@ -14,37 +14,44 @@
   <button class="btn-clear" id="limpiar">Limpiar</button>
 </div>
 
-  <div id="teclado">
-    <button data-value="7">7</button>
-    <button data-value="8">8</button>
-    <button data-value="9">9</button>
-    <button data-value="+">+</button>
-    <button data-value="-">-</button>
-  
-    <button data-value="4">4</button>
-    <button data-value="5">5</button>
-    <button data-value="6">6</button>
-    <button data-value="*">*</button>
-    <button data-value="/">/</button>
-  
-    <button data-value="1">1</button>
-    <button data-value="2">2</button>
-    <button data-value="3">3</button>
-    <button data-value="(">(</button>
-    <button data-value=")">)</button>
-  
-    <button data-value="0">0</button>
-    <button data-value="y">y</button>
-    <button data-value="y'">y'</button>
-    <button data-value="y''">y''</button>
-    <button data-value="y'''">y'''</button>
-  
-    <button data-value="dx">dx</button>
-    <button data-value="dy">dy</button>
-    <button data-value="∂">∂</button>
-    <button id="borrar">⌫</button>
-    <button id="resolver">Resolver</button>
-  </div>
+  <div class="input-row">
+  <input id="ecuacion" placeholder="Escribe tu ecuación aquí">
+  <button class="btn-clear" id="limpiar">Limpiar</button>
+</div>
+
+<div id="teclado">
+  <!-- Números -->
+  <button data-value="7">7</button>
+  <button data-value="8">8</button>
+  <button data-value="9">9</button>
+  <button data-value="+">+</button>
+  <button data-value="-">-</button>
+
+  <button data-value="4">4</button>
+  <button data-value="5">5</button>
+  <button data-value="6">6</button>
+  <button data-value="*">*</button>
+  <button data-value="/">/</button>
+
+  <button data-value="1">1</button>
+  <button data-value="2">2</button>
+  <button data-value="3">3</button>
+  <button data-value="(">(</button>
+  <button data-value=")">)</button>
+
+  <button data-value="0">0</button>
+  <button data-value="y">y</button>
+  <button data-value="x">x</button>
+  <button data-value="'">'</button> <!-- comilla simple -->
+  <button data-value="^">^</button> <!-- elevado -->
+
+  <button data-value="=">=</button> <!-- igual -->
+  <button data-value="dx">dx</button>
+  <button data-value="dy">dy</button>
+  <button data-value="∂">∂</button>
+  <button id="borrar">⌫</button>
+  <button id="resolver">Resolver</button>
+</div>
 
 
   <!-- Cuadro de resultados -->
@@ -60,4 +67,5 @@
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+
 
