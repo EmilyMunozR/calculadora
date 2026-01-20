@@ -49,14 +49,31 @@
   </div>
 
   <div class="result-box" id="resultado">
-    <p><strong>Orden:</strong> -</p>
-    <p><strong>Grado:</strong> -</p>
-    <p><strong>Linealidad:</strong> -</p>
-    <p><strong>Tipo:</strong> -</p>
-    <button class="btn-small" onclick="toggleDetalles()">Ver más</button>
-    <div id="detalles" class="detalles oculto"></div>
+  <p><strong>Ecuación:</strong> (y'')^2 + y = 0</p>
+
+  <div class="detalle">
+    <button class="toggle" onclick="toggleExp('orden')">Orden ▼</button>
+    <div id="exp-orden" class="exp oculto"></div>
   </div>
+
+  <div class="detalle">
+    <button class="toggle" onclick="toggleExp('grado')">Grado ▼</button>
+    <div id="exp-grado" class="exp oculto"></div>
+  </div>
+
+  <div class="detalle">
+    <button class="toggle" onclick="toggleExp('linealidad')">Linealidad ▼</button>
+    <div id="exp-linealidad" class="exp oculto"></div>
+  </div>
+
+  <div class="detalle">
+    <button class="toggle" onclick="toggleExp('tipo')">Tipo ▼</button>
+    <div id="exp-tipo" class="exp oculto"></div>
+  </div>
+</div>
+
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+
