@@ -35,14 +35,12 @@ function limpiar() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Engancha todos los botones con data-value
   document.querySelectorAll("#teclado button[data-value]").forEach(btn => {
     btn.addEventListener("click", () => {
       insertar(btn.getAttribute("data-value"));
     });
   });
 
-  // Botones especiales
   document.getElementById("borrar").addEventListener("click", borrar);
   document.getElementById("limpiar").addEventListener("click", limpiar);
   document.getElementById("resolver").addEventListener("click", clasificar);
