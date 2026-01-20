@@ -95,8 +95,31 @@ input {
   background: #5a6268;
 }
 
-.detalles {
-  margin-top: 10px;
+.detalle {
+  margin: 10px 0;
+}
+
+.toggle {
+  background: #2a3448;
+  color: #e0e0e0;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.toggle:hover {
+  background: #00bfff;
+  color: white;
+}
+
+.exp {
+  margin-top: 5px;
+  padding: 8px;
+  background: #0f1626;
+  border-radius: 5px;
   font-size: 14px;
   color: #ccc;
 }
@@ -104,3 +127,5 @@ input {
 .oculto {
   display: none;
 }
+
+
