@@ -4,14 +4,31 @@ import re
 app = Flask(__name__)
 
 def calcular_grado(ecuacion):
-    # Busca derivadas con exponentes, ej: (y'')^2, (y')^3, (y''')^4
-    regex = r"\((y'+|y''+|y'''+)\)\^(\d+)"
+    # Busca derivadas con exponentes, ej: (y')^3, (y'')^2, y'^4
+    regex = r"\(y('{1,3})\)\^(\d+)|y('{1,3})\^(\d+)"
     matches = re.findall(regex, ecuacion)
     if matches:
-        grados = [int(m[1]) for m in matches]
+        grados = []
+        for m in matches:
+            if m[1]:
+                grados.append(int(m[1]))
+            elif m[3]:
+                grados.append(int(m[3]))
         return max(grados)
-    else:
-        return 1  # por defecto si no hay potencias
+    return 1
+
+def es_lineal(ecuacion):
+    eq = ecuacion.replace(" ", "")
+    # Potencias de y o derivadas
+    if re.search(r"\(y('{1,3})\)\^\d+", eq) or re.search(r"y('{1,3})\^\d+", eq):
+        return "No lineal"
+    # Productos entre y y derivadas
+    if re.search(r"(y('{1,3})?|y)\*(y('{1,3})?|y)", eq):
+        return "No lineal"
+    # Potencias de derivadas parciales
+    if re.search(r"\(∂[a-zA-Z]+/∂[a-zA-Z]+\)\^\d+", eq):
+        return "No lineal"
+    return "Lineal"
 
 @app.route("/")
 def index():
@@ -29,6 +46,8 @@ def clasificar():
         orden = 2
     elif "y'" in ecuacion:
         orden = 1
+    elif "∂^2" in ecuacion:
+        orden = 2
     elif "∂" in ecuacion:
         orden = 1
 
@@ -36,9 +55,7 @@ def clasificar():
     grado = calcular_grado(ecuacion)
 
     # --- LINEALIDAD ---
-    lineal = "Lineal"
-    if "(y')^2" in ecuacion or "y*y'" in ecuacion or "(y'')^2" in ecuacion or "(y''')^2" in ecuacion:
-        lineal = "No lineal"
+    linealidad = es_lineal(ecuacion)
 
     # --- TIPO ---
     tipo = "Algebraica"
@@ -50,7 +67,7 @@ def clasificar():
     return jsonify({
         "orden": orden,
         "grado": grado,
-        "linealidad": lineal,
+        "linealidad": linealidad,
         "tipo": tipo
     })
 
