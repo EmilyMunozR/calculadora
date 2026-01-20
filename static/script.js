@@ -58,39 +58,66 @@ function clasificar() {
   })
   .then(res => res.json())
   .then(data => {
+    // --- Construir explicaciones usando la ecuación ---
+    let expOrden = "";
+    if (ecuacion.includes("y'''")) {
+      expOrden = `Es de orden 3 porque en la ecuación aparece "${ecuacion.match(/y'''/)}", que es una derivada de tercer orden.`;
+    } else if (ecuacion.includes("y''")) {
+      expOrden = `Es de orden 2 porque en la ecuación aparece "${ecuacion.match(/y''/)}", que es una derivada de segundo orden.`;
+    } else if (ecuacion.includes("y'")) {
+      expOrden = `Es de orden 1 porque en la ecuación aparece "${ecuacion.match(/y'/)}", que es una derivada de primer orden.`;
+    } else if (ecuacion.includes("∂^2")) {
+      expOrden = `Es de orden 2 porque en la ecuación aparece "${ecuacion.match(/∂\^2[^ ]+/)}", que indica derivada parcial de segundo orden.`;
+    } else if (ecuacion.includes("∂")) {
+      expOrden = `Es de orden 1 porque en la ecuación aparece "${ecuacion.match(/∂[^ ]+/)}", que indica derivada parcial de primer orden.`;
+    }
+
+    let expGrado = "";
+    const gradoMatch = ecuacion.match(/\^(\d+)/);
+    if (gradoMatch) {
+      expGrado = `Es de grado ${gradoMatch[1]} porque en la ecuación aparece "${ecuacion.match(/\(.*?\)\^\d+/)}", que está elevado a la potencia ${gradoMatch[1]}.`;
+    } else {
+      expGrado = `Es de grado 1 porque ninguna derivada aparece elevada a potencia mayor que 1.`;
+    }
+
+    let expLinealidad = "";
+    if (data.linealidad === "Lineal") {
+      expLinealidad = `Es lineal porque en la ecuación "${ecuacion}" todas las derivadas y la función aparecen solitas, sin multiplicarse ni elevarse.`;
+    } else {
+      expLinealidad = `Es no lineal porque en la ecuación aparece un término como "${ecuacion.match(/\(y.*?\)\^\d+/)}" que es una potencia de una derivada.`;
+    }
+
+    let expTipo = "";
+    if (data.tipo === "Diferencial parcial") {
+      expTipo = `Es diferencial parcial porque en la ecuación aparece el símbolo "∂", indicando derivadas respecto a varias variables.`;
+    } else if (data.tipo === "Diferencial ordinaria") {
+      expTipo = `Es diferencial ordinaria porque en la ecuación aparecen derivadas con comillas (ej. "y'"), respecto a una sola variable.`;
+    } else {
+      expTipo = `Es algebraica porque en la ecuación "${ecuacion}" no aparecen derivadas.`;
+    }
+
+    // --- Renderizar resultado con desplegables ---
     document.getElementById("resultado").innerHTML = `
       <p><strong>Ecuación:</strong> ${ecuacion}</p>
 
       <div class="detalle">
         <button class="toggle" onclick="toggleExp('orden')">Orden ▼ (${data.orden})</button>
-        <div id="exp-orden" class="exp oculto">
-          Esta ecuación es de orden ${data.orden} porque la derivada más alta es de orden ${data.orden}.
-        </div>
+        <div id="exp-orden" class="exp oculto">${expOrden}</div>
       </div>
 
       <div class="detalle">
         <button class="toggle" onclick="toggleExp('grado')">Grado ▼ (${data.grado})</button>
-        <div id="exp-grado" class="exp oculto">
-          Es de grado ${data.grado} porque aparece una derivada elevada a la potencia ${data.grado}.
-        </div>
+        <div id="exp-grado" class="exp oculto">${expGrado}</div>
       </div>
 
       <div class="detalle">
         <button class="toggle" onclick="toggleExp('linealidad')">Linealidad ▼ (${data.linealidad})</button>
-        <div id="exp-linealidad" class="exp oculto">
-          ${data.linealidad === "Lineal"
-            ? "Es lineal porque y y sus derivadas aparecen solo en potencia 1 y sin multiplicarse."
-            : "Es no lineal porque hay potencias o productos de y o sus derivadas (ejemplo: (y'')^2)."}
-        </div>
+        <div id="exp-linealidad" class="exp oculto">${expLinealidad}</div>
       </div>
 
       <div class="detalle">
         <button class="toggle" onclick="toggleExp('tipo')">Tipo ▼ (${data.tipo})</button>
-        <div id="exp-tipo" class="exp oculto">
-          ${data.tipo === "Diferencial parcial"
-            ? "Es una ecuación diferencial parcial porque aparecen derivadas con el símbolo ∂."
-            : "Es una ecuación diferencial ordinaria porque las derivadas son respecto a una sola variable."}
-        </div>
+        <div id="exp-tipo" class="exp oculto">${expTipo}</div>
       </div>
     `;
   });
@@ -100,6 +127,7 @@ function toggleExp(id) {
   const exp = document.getElementById("exp-" + id);
   exp.classList.toggle("oculto");
 }
+
 
 
 function toggleDetalles() {
@@ -122,4 +150,5 @@ function esLineal(eqRaw) {
 
   return "Lineal";
 }
+
 
