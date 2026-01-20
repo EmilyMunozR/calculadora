@@ -96,21 +96,26 @@ input {
 }
 
 .detalle {
-  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
 }
 
-.toggle {
+.detalle span {
+  flex: 1;
+}
+
+.exp-btn {
   background: #2a3448;
   color: #e0e0e0;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 4px 8px;
+  border-radius: 3px;
   cursor: pointer;
-  width: 100%;
-  text-align: left;
+  font-size: 14px;
 }
 
-.toggle:hover {
+.exp-btn:hover {
   background: #00bfff;
   color: white;
 }
@@ -127,5 +132,6 @@ input {
 .oculto {
   display: none;
 }
+
 
 
