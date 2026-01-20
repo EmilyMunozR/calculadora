@@ -35,9 +35,14 @@ function limpiar() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Engancha todos los botones con data-value
   document.querySelectorAll("#teclado button[data-value]").forEach(btn => {
-    btn.addEventListener("click", () => insertar(btn.getAttribute("data-value")));
+    btn.addEventListener("click", () => {
+      insertar(btn.getAttribute("data-value"));
+    });
   });
+
+  // Botones especiales
   document.getElementById("borrar").addEventListener("click", borrar);
   document.getElementById("limpiar").addEventListener("click", limpiar);
   document.getElementById("resolver").addEventListener("click", clasificar);
@@ -56,4 +61,20 @@ function clasificar() {
     document.getElementById("resultado").innerHTML = `
       <p><strong>Orden:</strong> ${data.orden}</p>
       <p><strong>Grado:</strong> ${data.grado}</p>
-      <p><strong>Linealidad:</strong
+      <p><strong>Linealidad:</strong> ${data.linealidad}</p>
+      <p><strong>Tipo:</strong> ${data.tipo}</p>
+      <button class="btn-small" onclick="toggleDetalles()">Ver más</button>
+      <div id="detalles" class="detalles oculto">
+        <p><strong>Orden:</strong> ${data.orden} porque la derivada más alta es de orden ${data.orden}.</p>
+        <p><strong>Grado:</strong> ${data.grado} porque la derivada aparece elevada a la potencia ${data.grado}.</p>
+        <p><strong>Linealidad:</strong> ${data.linealidad} porque ${data.linealidad === "Lineal" ? "las derivadas y la función aparecen solitas, sin multiplicarse ni elevarse." : "hay productos o potencias de y o sus derivadas."}</p>
+        <p><strong>Tipo:</strong> ${data.tipo} porque ${data.tipo === "Diferencial parcial" ? "aparecen derivadas parciales (∂)." : "las derivadas son respecto a una sola variable."}</p>
+      </div>
+    `;
+  });
+}
+
+function toggleDetalles() {
+  const detalles = document.getElementById("detalles");
+  detalles.classList.toggle("oculto");
+}
