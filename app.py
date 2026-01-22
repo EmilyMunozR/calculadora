@@ -23,8 +23,6 @@ def es_lineal(ecuacion):
         return "No lineal"
     if re.search(r"\(u_[a-z]+\)\^\d+", eq) or re.search(r"u_[a-z]+\^\d+", eq):
         return "No lineal"
-    if re.search(r"d[a-zA-Z]+/d[a-zA-Z]+", eq):
-        return "Lineal"
     return "Lineal"
 
 def detectar_tipo(ecuacion):
@@ -51,10 +49,7 @@ def clasificar():
 
     if tipo == "No es una ecuación diferencial":
         return jsonify({
-            "orden": "-",
-            "grado": "-",
-            "linealidad": "-",
-            "tipo": tipo
+            "error": "La expresión ingresada no es una ecuación diferencial."
         })
 
     orden = 0
