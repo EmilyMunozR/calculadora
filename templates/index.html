@@ -10,7 +10,8 @@
     <h1>Clasificador de Ecuaciones</h1>
 
     <div class="input-row">
-      <input id="ecuacion" placeholder="Escribe tu ecuación aquí">
+      <!-- Ecuación predeterminada -->
+      <input id="ecuacion" value="(y'')^2 + y = 0">
       <button class="btn-clear" id="limpiar">Limpiar</button>
     </div>
 
@@ -49,47 +50,9 @@
   </div>
 
   <div class="result-box" id="resultado">
-  <p><strong>Ecuación:</strong> (y'')^2 + y = 0</p>
-
-  <div class="detalle">
-  <span><strong>Orden:</strong> 2</span>
-  <button class="exp-btn" onclick="toggleExp('orden')">▼</button>
-  <div id="exp-orden" class="exp oculto">
-    Esta ecuación es de orden 2 porque aparece "y''", que es una derivada de segundo orden.
+    <p><strong>Ecuación:</strong> -</p>
   </div>
-</div>
-
-<div class="detalle">
-  <span><strong>Grado:</strong> 2</span>
-  <button class="exp-btn" onclick="toggleExp('grado')">▼</button>
-  <div id="exp-grado" class="exp oculto">
-    Es de grado 2 porque aparece "(y'')^2", que está elevado al 2.
-  </div>
-</div>
-
-<div class="detalle">
-  <span><strong>Linealidad:</strong> No lineal</span>
-  <button class="exp-btn" onclick="toggleExp('linealidad')">▼</button>
-  <div id="exp-linealidad" class="exp oculto">
-    Es no lineal porque aparece "(y'')^2", una potencia de una derivada.
-  </div>
-</div>
-
-<div class="detalle">
-  <span><strong>Tipo:</strong> Ordinaria</span>
-  <button class="exp-btn" onclick="toggleExp('tipo')">▼</button>
-  <div id="exp-tipo" class="exp oculto">
-    Es diferencial ordinaria porque aparecen derivadas con comillas (ej. "y''"), respecto a una sola variable.
-  </div>
-</div>
-
-<div href="https://archive.org/details/msdos_DOOM_1993"></div>
-
-
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
-
-
