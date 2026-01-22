@@ -10,12 +10,13 @@
     <h1>Clasificador de Ecuaciones</h1>
 
     <div class="input-row">
-      <!-- Ecuación predeterminada -->
-      <input id="ecuacion" value="(y'')^2 + y = 0">
+      <!-- Input limpio -->
+      <input id="ecuacion" placeholder="Escribe tu ecuación aquí">
       <button class="btn-clear" id="limpiar">Limpiar</button>
     </div>
 
     <div id="teclado">
+      <!-- Teclado virtual -->
       <button data-value="7">7</button>
       <button data-value="8">8</button>
       <button data-value="9">9</button>
@@ -53,17 +54,17 @@
     <p><strong>Ecuación:</strong> -</p>
   </div>
 
+  <!-- 🔥 DOOM incrustado desde Archive.org -->
   <div class="doom-box">
-  <iframe src="https://archive.org/embed/msdos_DOOM_1993"
-          width="640" height="480"
-          frameborder="0"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-          allowfullscreen>
-  </iframe>
-</div>
+    <iframe src="https://archive.org/embed/msdos_DOOM_1993"
+            width="640" height="480"
+            frameborder="0"
+            webkitallowfullscreen="true"
+            mozallowfullscreen="true"
+            allowfullscreen>
+    </iframe>
+  </div>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
