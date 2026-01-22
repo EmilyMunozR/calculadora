@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: #0a0f1c; /* azul oscuro estilo Jinx */
+  background: #0a0f1c;
   color: #e0e0e0;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ body {
 
 h1 {
   margin-bottom: 20px;
-  color: #00bfff; /* azul eléctrico */
+  color: #00bfff;
 }
 
 .input-row {
@@ -47,10 +47,6 @@ input {
   cursor: pointer;
 }
 
-.btn-clear:hover {
-  background: #cc0033;
-}
-
 #teclado {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -65,34 +61,14 @@ input {
   color: #e0e0e0;
   cursor: pointer;
   border-radius: 5px;
-  transition: 0.2s;
-}
-
-#teclado button:hover {
-  background: #00bfff;
-  color: white;
 }
 
 .result-box {
   background: #1a2233;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.6);
   width: 450px;
   text-align: left;
-}
-
-.btn-small {
-  padding: 5px 10px;
-  background: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-small:hover {
-  background: #5a6268;
 }
 
 .detalle {
@@ -115,11 +91,6 @@ input {
   font-size: 14px;
 }
 
-.exp-btn:hover {
-  background: #00bfff;
-  color: white;
-}
-
 .exp {
   margin-top: 5px;
   padding: 8px;
@@ -130,8 +101,3 @@ input {
 }
 
 .oculto {
-  display: none;
-}
-
-
-
