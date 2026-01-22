@@ -1,8 +1,54 @@
+from flask import Flask, render_template, request, jsonify
+import re
+
+app = Flask(__name__)
+
+# --- Función para calcular grado ---
+def calcular_grado(ecuacion):
+    regex = r"\(y('{1,3})\)\^(\d+)|y('{1,3})\^(\d+)|\(u_[a-z]+\)\^(\d+)|u_[a-z]+\^\d+"
+    matches = re.findall(regex, ecuacion)
+    if matches:
+        grados = []
+        for m in matches:
+            for val in m:
+                if val.isdigit():
+                    grados.append(int(val))
+        return max(grados)
+    return 1
+
+# --- Función para determinar linealidad ---
+def es_lineal(ecuacion):
+    eq = ecuacion.replace(" ", "")
+    if re.search(r"\(y('{1,3})\)\^\d+", eq) or re.search(r"y('{1,3})\^\d+", eq):
+        return "No lineal"
+    if re.search(r"(y('{1,3})?|y)\*(y('{1,3})?|y)", eq):
+        return "No lineal"
+    if re.search(r"\(u_[a-z]+\)\^\d+", eq) or re.search(r"u_[a-z]+\^\d+", eq):
+        return "No lineal"
+    return "Lineal"
+
+# --- Función para detectar tipo ---
+def detectar_tipo(ecuacion):
+    eq = ecuacion.replace(" ", "")
+    if re.search(r"u_[a-z]+", eq):
+        return "Diferencial parcial"
+    if re.search(r"d[a-zA-Z]+/d[a-zA-Z]+", eq):
+        return "Diferencial parcial"
+    if "∂" in eq:
+        return "Diferencial parcial"
+    if "y'" in eq or "y''" in eq or "y'''" in eq:
+        return "Diferencial ordinaria"
+    return "No es una ecuación diferencial"
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
 @app.route("/clasificar", methods=["POST"])
 def clasificar():
     ecuacion = request.json.get("ecuacion", "").strip()
 
-    # --- Validación: ¿es diferencial?
+    # --- Validación: ¿es diferencial? ---
     patrones = [
         r"y'", r"y''", r"y'''",
         r"∂", r"u_[a-z]+", r"d[a-zA-Z]+/d[a-zA-Z]+"
@@ -14,9 +60,9 @@ def clasificar():
             "error": "La expresión ingresada no es una ecuación diferencial."
         })
 
-    # --- Si sí es diferencial, seguimos normal ---
     tipo = detectar_tipo(ecuacion)
 
+    # --- Calcular orden ---
     orden = 0
     if "y'''" in ecuacion:
         orden = 3
@@ -38,3 +84,6 @@ def clasificar():
         "linealidad": linealidad,
         "tipo": tipo
     })
+
+if __name__ == "__main__":
+    app.run(debug=True)
